@@ -2,34 +2,10 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>SceneMatch AI - Upload de Roteiro</title>
+  <title>Upload de Arquivo</title>
 </head>
-<body style="font-family: Arial, sans-serif; text-align: center; margin-top: 50px;">
-
-  <h1>Envie seu Roteiro</h1>
-  <p>Escolha um arquivo de texto (.txt) com o roteiro que você quer transformar em vídeo.</p>
-
-  <form id="uploadForm">
-    <input type="file" id="roteiroFile" accept=".txt" required><br><br>
-    <button type="submit" style="padding: 10px 20px;">Enviar Roteiro</button>
-  </form>
-
-  <p id="mensagem" style="color: green; margin-top: 20px;"></p>
-
-  <script>
-    const form = document.getElementById('uploadForm');
-    const mensagem = document.getElementById('mensagem');
-
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-      const fileInput = document.getElementById('roteiroFile');
-      if (fileInput.files.length > 0) {
-        mensagem.textContent = "Roteiro enviado com sucesso!";
-      } else {
-        mensagem.textContent = "Por favor, selecione um arquivo.";
-      }
-    });
-  </script>
-
+<body style="text-align: center; margin-top: 100px;">
+  <h1>Upload de Roteiro</h1>
+  <p>Envie seu roteiro para gerar vídeos automaticamente!</p>
 </body>
-</html>␣
+</html>
