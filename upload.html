@@ -1,75 +1,71 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Upload de Roteiro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f2f2f2;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        p {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-            color: #666;
-        }
-
-        input[type="file"] {
-            margin-bottom: 20px;
-            padding: 10px;
-            border: 2px dashed #aaa;
-            background-color: #fff;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        button {
-            background-color: #6a0dad;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #5c0aad;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Upload de Arquivo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+      background-color: #f2f2f2;
+    }
+    h1 {
+      color: #333;
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 18px;
+      margin-bottom: 30px;
+      color: #666;
+    }
+    input[type="file"] {
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 25px;
+      margin: 10px;
+      font-size: 16px;
+      background-color: #6A0DAD; /* Roxo */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #580094; /* Roxo mais escuro ao passar o mouse */
+    }
+  </style>
 </head>
 <body>
-    <h1>Upload de Roteiro</h1>
-    <p>Envie seu roteiro para gerar vídeos automaticamente!</p>
-    
-    <form id="uploadForm">
-        <input type="file" id="roteiroFile" required><br>
-        <button type="submit">Enviar Roteiro</button>
-    </form>
 
-    <script>
-        const form = document.getElementById('uploadForm');
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            alert('Arquivo enviado com sucesso! (em breve vamos integrar o processamento)');
-        });
-    </script>
+  <h1>Upload de Roteiro</h1>
+  <p>Envie seu roteiro para gerar vídeos automaticamente!</p>
+
+  <form id="uploadForm">
+    <input type="file" id="roteiroFile" required><br>
+    <button type="submit">Enviar Roteiro</button>
+  </form>
+
+  <br>
+
+  <!-- Botão Voltar -->
+  <button onclick="window.location.href='index.html'">Voltar para a Home</button>
+
+  <script>
+    const form = document.getElementById('uploadForm');
+    const fileInput = document.getElementById('roteiroFile');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      if (fileInput.files.length > 0) {
+        alert('Roteiro enviado com sucesso!');
+      } else {
+        alert('Por favor, selecione um arquivo para enviar.');
+      }
+    });
+  </script>
+
 </body>
 </html>
