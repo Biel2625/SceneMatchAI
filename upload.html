@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Upload de Arquivo</title>
+  <title>Upload de Roteiro</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -52,6 +52,19 @@
       transform: scale(1.05);
       box-shadow: 0 8px 20px rgba(106, 13, 173, 0.6);
     }
+    #progressContainer {
+      display: none;
+      width: 80%;
+      background-color: #ddd;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    #progressBar {
+      width: 0%;
+      height: 20px;
+      background-color: #6a0dad;
+      border-radius: 10px;
+    }
     #message {
       margin-top: 20px;
       font-weight: bold;
@@ -68,21 +81,40 @@
     <button type="submit">Enviar Roteiro</button>
   </form>
 
+  <div id="progressContainer">
+    <div id="progressBar"></div>
+  </div>
+
   <button onclick="window.location.href='index.html'">Voltar para a Home</button>
 
   <p id="message"></p>
 
   <script>
     const form = document.getElementById('uploadForm');
+    const fileInput = document.getElementById('roteiroFile');
     const message = document.getElementById('message');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
 
     form.addEventListener('submit', function(event) {
       event.preventDefault();
-      const fileInput = document.getElementById('roteiroFile');
-      
+
       if (fileInput.files.length > 0) {
-        message.style.color = "green";
-        message.textContent = "Roteiro enviado com sucesso!";
+        message.textContent = '';
+        progressContainer.style.display = 'block';
+        let width = 0;
+        let uploadSimulation = setInterval(function() {
+          if (width >= 100) {
+            clearInterval(uploadSimulation);
+            message.style.color = "green";
+            message.textContent = "Roteiro enviado com sucesso!";
+            progressContainer.style.display = 'none';
+            progressBar.style.width = '0%';
+          } else {
+            width++;
+            progressBar.style.width = width + '%';
+          }
+        }, 30);
       } else {
         message.style.color = "red";
         message.textContent = "Por favor, selecione um arquivo antes de enviar.";
