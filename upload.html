@@ -2,39 +2,59 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Upload de Arquivo</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      margin-top: 100px;
-      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(to bottom right, #f2f2f2, #e6e6e6);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
     h1 {
       color: #333;
-      font-size: 36px;
-      margin-bottom: 20px;
+      font-size: 2.5em;
+      margin-bottom: 10px;
     }
     p {
-      font-size: 18px;
+      color: #555;
+      font-size: 1.2em;
       margin-bottom: 30px;
-      color: #666;
     }
     input[type="file"] {
       margin-bottom: 20px;
-    }
-    button {
-      padding: 10px 25px;
-      margin: 10px;
-      font-size: 16px;
-      background-color: #6A0DAD; /* Roxo */
-      color: white;
-      border: none;
-      border-radius: 5px;
+      padding: 10px;
+      border: 2px dashed #aaa;
+      background-color: #fff;
+      border-radius: 10px;
       cursor: pointer;
     }
+    button {
+      padding: 12px 30px;
+      background-color: #6a0dad;
+      color: white;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 10px;
+      box-shadow: 0 5px 15px rgba(106, 13, 173, 0.4);
+      transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
     button:hover {
-      background-color: #580094; /* Roxo mais escuro ao passar o mouse */
+      background-color: #580a9e;
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(106, 13, 173, 0.6);
+    }
+    #message {
+      margin-top: 20px;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -48,21 +68,24 @@
     <button type="submit">Enviar Roteiro</button>
   </form>
 
-  <br>
-
-  <!-- Botão Voltar -->
   <button onclick="window.location.href='index.html'">Voltar para a Home</button>
+
+  <p id="message"></p>
 
   <script>
     const form = document.getElementById('uploadForm');
-    const fileInput = document.getElementById('roteiroFile');
+    const message = document.getElementById('message');
 
     form.addEventListener('submit', function(event) {
       event.preventDefault();
+      const fileInput = document.getElementById('roteiroFile');
+      
       if (fileInput.files.length > 0) {
-        alert('Roteiro enviado com sucesso!');
+        message.style.color = "green";
+        message.textContent = "Roteiro enviado com sucesso!";
       } else {
-        alert('Por favor, selecione um arquivo para enviar.');
+        message.style.color = "red";
+        message.textContent = "Por favor, selecione um arquivo antes de enviar.";
       }
     });
   </script>
