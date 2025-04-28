@@ -1,10 +1,18 @@
 import os
 import time
+import random
+
+def simular_busca_cena(descricao):
+    """
+    Simula encontrar uma cena baseada na descrição.
+    """
+    duracao = random.randint(3, 5)  # duração aleatória entre 3 e 5 segundos
+    print(f"Encontrada cena para: '{descricao}' (duração: {duracao} segundos)")
+    time.sleep(1)  # Simula o tempo de busca
 
 def processar_roteiro(nome_arquivo):
     """
-    Simula o processamento real de um roteiro de vídeo.
-    Agora lê o conteúdo do arquivo e imprime cada linha.
+    Lê o roteiro e simula a busca de cenas para cada ação.
     """
     caminho_arquivo = os.path.join('uploads', nome_arquivo)
 
@@ -20,10 +28,9 @@ def processar_roteiro(nome_arquivo):
             for linha in linhas:
                 linha = linha.strip()
                 if linha:
-                    print(f"Processando ação: {linha}")
-                    time.sleep(1)  # Simula tempo de busca da cena (opcional)
+                    simular_busca_cena(linha)
         
-        print("Processamento do roteiro concluído com sucesso!")
+        print("\nProcessamento do roteiro concluído com sucesso!")
     
     except FileNotFoundError:
         print(f"Arquivo '{caminho_arquivo}' não encontrado.")
