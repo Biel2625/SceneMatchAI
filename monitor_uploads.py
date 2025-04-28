@@ -1,32 +1,24 @@
-import os
 import time
+import os
 import subprocess
 
 def monitorar_uploads():
-    uploads_dir = os.path.join(os.getcwd(), 'uploads')
-    
-    print("Monitorando uploads na pasta 'uploads'...")
-    
+    caminho_uploads = 'uploads'
+    print(f"Monitorando uploads na pasta '{caminho_uploads}'...")
+
+    arquivos_anteriores = set(os.listdir(caminho_uploads))
+
     while True:
-        arquivos = os.listdir(uploads_dir)
-        arquivos_txt = [arquivo for arquivo in arquivos if arquivo.endswith('.txt')]
-        
-        if arquivos_txt:
-            for arquivo in arquivos_txt:
-                caminho_completo = os.path.join(uploads_dir, arquivo)
-                print(f"Novo roteiro detectado: {arquivo}")
-                
-                # Chama o script processar_roteiro.py
+        time.sleep(3)  # Verifica a cada 3 segundos
+        arquivos_atuais = set(os.listdir(caminho_uploads))
+        novos_arquivos = arquivos_atuais - arquivos_anteriores
+
+        for novo_arquivo in novos_arquivos:
+            if novo_arquivo.endswith('.txt'):
+                print(f"Novo roteiro detectado: {novo_arquivo}")
                 subprocess.run(["python", "processar_roteiro.py"])
-                
-                # Após processar, move o arquivo para a pasta 'processados' (vamos criar essa pasta também)
-                processados_dir = os.path.join(os.getcwd(), 'processados')
-                os.makedirs(processados_dir, exist_ok=True)
-                os.rename(caminho_completo, os.path.join(processados_dir, arquivo))
-                
-                print(f"Roteiro '{arquivo}' processado e movido para a pasta 'processados'.")
-        
-        time.sleep(5)  # Verifica a cada 5 segundos
+
+        arquivos_anteriores = arquivos_atuais
 
 if __name__ == "__main__":
     monitorar_uploads()

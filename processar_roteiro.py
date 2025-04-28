@@ -1,60 +1,42 @@
 import os
 import time
+import shutil
 
 def processar_roteiro(nome_arquivo):
     """
-    Simula o processamento de um roteiro e salva o resultado.
+    Simula o processamento de um roteiro.
     """
-    resultado = []
+    caminho_uploads = os.path.join('uploads', nome_arquivo)
+    caminho_resultado = os.path.join('processados', f"resultado_{nome_arquivo}")
 
-    print(f"Processando o roteiro '{nome_arquivo}'...")
-    time.sleep(1)  # Simula o tempo de processamento
+    print(f"Processando o roteiro '{caminho_uploads}'...")
+    time.sleep(2)  # Simula o tempo de processamento
 
-    with open(nome_arquivo, 'r', encoding='utf-8') as f:
-        linhas = f.readlines()
+    with open(caminho_resultado, 'w', encoding='utf-8') as f:
+        f.write(f"Cena encontrada: {nome_arquivo.replace('.txt', '')} (duração: 5 segundos)\n")
 
-    for linha in linhas:
-        linha = linha.strip()
-        if linha:
-            resultado.append(f"Cena encontrada: {linha} (duração: 5 segundos)")
-
-    # Salvar resultado em um arquivo
-    salvar_resultado(nome_arquivo, resultado)
-
-    print("Processamento do roteiro concluído com sucesso!")
-
-def salvar_resultado(nome_arquivo, resultados):
-    """
-    Salva as cenas encontradas em um arquivo resultado.txt
-    """
-    base_nome = os.path.splitext(os.path.basename(nome_arquivo))[0]
-    nome_saida = f"resultado_{base_nome}.txt"
-
-    with open(nome_saida, 'w', encoding='utf-8') as f:
-        for linha in resultados:
-            f.write(linha + '\n')
-
-    print(f"Resultado salvo em: {nome_saida}")
+    print(f"Resultado salvo em: {caminho_resultado}")
+    print("Processamento concluído com sucesso!")
 
 def verificar_uploads():
     """
     Verifica se há arquivos de roteiro enviados.
     """
-    uploads_dir = "uploads"
-    if not os.path.exists(uploads_dir):
-        print("Pasta de uploads não encontrada.")
-        return
-
-    arquivos = os.listdir(uploads_dir)
-    arquivos_txt = [arquivo for arquivo in arquivos if arquivo.endswith(".txt")]
+    caminho_uploads = 'uploads'
+    arquivos = os.listdir(caminho_uploads)
+    arquivos_txt = [arquivo for arquivo in arquivos if arquivo.endswith('.txt')]
 
     if not arquivos_txt:
         print("Nenhum roteiro encontrado.")
         return
 
     for roteiro in arquivos_txt:
-        caminho = os.path.join(uploads_dir, roteiro)
-        processar_roteiro(caminho)
+        processar_roteiro(roteiro)
+        # Move o roteiro original para a pasta 'processados'
+        origem = os.path.join(caminho_uploads, roteiro)
+        destino = os.path.join('processados', roteiro)
+        shutil.move(origem, destino)
+        print(f"Roteiro '{roteiro}' processado e movido para a pasta 'processados'.")
 
 if __name__ == "__main__":
     print("Iniciando verificação de uploads...")
