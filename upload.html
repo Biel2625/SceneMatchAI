@@ -7,34 +7,23 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            padding: 50px;
-            background-color: #f0f2f5;
+            padding-top: 50px;
+            background-color: #f7f7f7;
         }
         h1 {
             color: #333;
         }
         p {
             color: #666;
-            margin-bottom: 30px;
         }
-        .button {
-            padding: 12px 25px;
-            margin: 10px;
-            border: none;
-            border-radius: 8px;
+        input[type="file"], button {
+            margin-top: 15px;
+            padding: 10px 20px;
             font-size: 16px;
-            cursor: pointer;
-            color: #fff;
-            background-color: #6a0dad;
-            transition: background-color 0.3s ease;
         }
-        .button:hover {
-            background-color: #4b0082;
-        }
-        #success-message {
-            display: none;
-            margin-top: 20px;
+        .success-message {
             color: green;
+            margin-top: 20px;
             font-weight: bold;
         }
     </style>
@@ -45,22 +34,41 @@
 
     <form id="uploadForm">
         <input type="file" id="fileInput" required><br><br>
-        <button type="submit" class="button">Enviar Roteiro</button>
+        <button type="submit">Enviar Roteiro</button>
     </form>
 
-    <button class="button" onclick="window.location.href='index.html'">Voltar para a Home</button>
-
-    <div id="success-message">
-        Seu roteiro foi enviado com sucesso! Estamos processando seu vídeo.
-    </div>
+    <div class="success-message" id="successMessage"></div>
 
     <script>
-        const form = document.getElementById('uploadForm');
-        const successMessage = document.getElementById('success-message');
+        document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
 
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            successMessage.style.display = 'block';
+            if (!file) {
+                alert('Por favor, selecione um arquivo!');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('roteiro', file);
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    document.getElementById('successMessage').innerText = 'Arquivo enviado com sucesso!';
+                    fileInput.value = '';
+                } else {
+                    alert('Erro ao enviar arquivo.');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro de conexão com o servidor.');
+            }
         });
     </script>
 </body>
