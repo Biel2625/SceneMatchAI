@@ -1,36 +1,52 @@
-def processar_roteiro(texto_roteiro):
-    texto_roteiro = texto_roteiro.lower()
+import os
+import time
 
-    cenas = []
-
-    if "gol" in texto_roteiro:
-        cenas.append("Cena de gol sendo marcado")
-    if "drible" in texto_roteiro:
-        cenas.append("Cena de drible desconcertante")
-    if "defesa" in texto_roteiro or "goleiro" in texto_roteiro:
-        cenas.append("Defesa impressionante do goleiro")
-    if "torcida" in texto_roteiro:
-        cenas.append("Torcida vibrando no estádio")
-    if "cartão vermelho" in texto_roteiro:
-        cenas.append("Jogador sendo expulso com cartão vermelho")
-    if "cartão amarelo" in texto_roteiro:
-        cenas.append("Jogador recebendo cartão amarelo")
-    if "pênalti" in texto_roteiro:
-        cenas.append("Cobrança de pênalti")
-    if "comemoração" in texto_roteiro:
-        cenas.append("Comemoração dos jogadores")
-
-    if not cenas:
-        cenas.append("Cenas gerais de jogo de futebol")
-
-    return cenas
-
-# Exemplo de teste
-if __name__ == "__main__":
-    roteiro_exemplo = """
-    Um jogador faz um drible incrível, em seguida marca um gol. 
-    Logo depois o goleiro faz uma defesa espetacular, e a torcida comemora muito!
+def processar_roteiro(nome_arquivo):
     """
-    resultado = processar_roteiro(roteiro_exemplo)
-    for cena in resultado:
-        print(cena)
+    Simula o processamento real de um roteiro de vídeo.
+    Agora lê o conteúdo do arquivo e imprime cada linha.
+    """
+    caminho_arquivo = os.path.join('uploads', nome_arquivo)
+
+    print(f"Processando o roteiro '{caminho_arquivo}'...")
+    
+    try:
+        with open(caminho_arquivo, 'r', encoding='utf-8') as arquivo:
+            linhas = arquivo.readlines()
+            if not linhas:
+                print("O roteiro está vazio.")
+                return
+
+            for linha in linhas:
+                linha = linha.strip()
+                if linha:
+                    print(f"Processando ação: {linha}")
+                    time.sleep(1)  # Simula tempo de busca da cena (opcional)
+        
+        print("Processamento do roteiro concluído com sucesso!")
+    
+    except FileNotFoundError:
+        print(f"Arquivo '{caminho_arquivo}' não encontrado.")
+
+def verificar_uploads():
+    """
+    Verifica se há arquivos de roteiro enviados.
+    """
+    uploads_dir = 'uploads'
+    if not os.path.exists(uploads_dir):
+        print("Pasta 'uploads' não encontrada.")
+        return
+
+    arquivos = os.listdir(uploads_dir)
+    arquivos_txt = [arquivo for arquivo in arquivos if arquivo.endswith(".txt")]
+
+    if not arquivos_txt:
+        print("Nenhum roteiro encontrado.")
+        return
+
+    for roteiro in arquivos_txt:
+        processar_roteiro(roteiro)
+
+if __name__ == "__main__":
+    print("Iniciando verificação de uploads...")
+    verificar_uploads()
