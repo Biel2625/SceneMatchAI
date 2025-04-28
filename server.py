@@ -1,83 +1,63 @@
-from flask import Flask, render_template_string, request
+from flask import Flask, request, render_template_string
 import os
+import time
 
 app = Flask(__name__)
 
 UPLOAD_FOLDER = 'uploads'
+PROCESSED_FOLDER = 'processados'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(PROCESSED_FOLDER, exist_ok=True)
 
-# Página de upload com estilo
-@app.route('/')
-def index():
-    return render_template_string('''
-        <!DOCTYPE html>
-        <html lang="pt-BR">
-        <head>
-            <meta charset="UTF-8">
-            <title>Upload de Roteiro - SceneMatchAI</title>
-            <style>
-                body {
-                    background: linear-gradient(to right, #4facfe, #00f2fe);
-                    font-family: Arial, sans-serif;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    height: 100vh;
-                    margin: 0;
-                }
-                h1 {
-                    color: white;
-                    margin-bottom: 20px;
-                    text-shadow: 1px 1px 4px black;
-                }
-                form {
-                    background-color: white;
-                    padding: 30px;
-                    border-radius: 10px;
-                    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                }
-                input[type="file"] {
-                    margin-bottom: 20px;
-                }
-                button {
-                    background-color: #4facfe;
-                    color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    font-size: 16px;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    transition: background-color 0.3s ease;
-                }
-                button:hover {
-                    background-color: #00c6fb;
-                }
-            </style>
-        </head>
-        <body>
-            <h1>Enviar Roteiro</h1>
-            <form method="POST" action="/upload" enctype="multipart/form-data">
-                <input type="file" name="arquivo" required>
-                <button type="submit">Enviar</button>
-            </form>
-        </body>
-        </html>
-    ''')
+# HTML da página principal
+UPLOAD_PAGE = '''
+<!doctype html>
+<title>Upload de Roteiro</title>
+<h1>Enviar Roteiro</h1>
+<form method=post enctype=multipart/form-data>
+  <input type=file name=arquivo>
+  <input type=submit value=Enviar>
+</form>
+'''
 
-# Rota para processar o upload
-@app.route('/upload', methods=['POST'])
-def upload():
-    if 'arquivo' not in request.files:
-        return 'Nenhum arquivo enviado!', 400
-    file = request.files['arquivo']
-    if file.filename == '':
-        return 'Nenhum arquivo selecionado!', 400
-    file.save(os.path.join(UPLOAD_FOLDER, file.filename))
-    return f'<h2>Arquivo <strong>{file.filename}</strong> enviado com sucesso!</h2><br><a href="/">Enviar outro arquivo</a>'
+# Página de resultado
+RESULT_PAGE = '''
+<!doctype html>
+<title>Resultado do Processamento</title>
+<h1>Resultado do seu roteiro:</h1>
+<pre>{{resultado}}</pre>
+<a href="/">Enviar outro roteiro</a>
+'''
+
+def processar_roteiro(caminho_arquivo):
+    with open(caminho_arquivo, 'r', encoding='utf-8') as f:
+        linhas = f.readlines()
+
+    resultado = []
+    for linha in linhas:
+        linha = linha.strip()
+        if linha:
+            resultado.append(f"Cena encontrada: {linha} (duração: 5 segundos)")
+
+    nome_arquivo = os.path.basename(caminho_arquivo)
+    resultado_nome = f"resultado_{nome_arquivo}"
+
+    resultado_caminho = os.path.join(PROCESSED_FOLDER, resultado_nome)
+    with open(resultado_caminho, 'w', encoding='utf-8') as f:
+        f.write('\n'.join(resultado))
+
+    return '\n'.join(resultado)
+
+@app.route('/', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        arquivo = request.files['arquivo']
+        if arquivo:
+            caminho_arquivo = os.path.join(UPLOAD_FOLDER, arquivo.filename)
+            arquivo.save(caminho_arquivo)
+            resultado = processar_roteiro(caminho_arquivo)
+            return render_template_string(RESULT_PAGE, resultado=resultado)
+    return UPLOAD_PAGE
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug=False)
