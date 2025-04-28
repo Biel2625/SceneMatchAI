@@ -1,47 +1,48 @@
 import os
 import time
-import random
-
-def simular_busca_cena(descricao):
-    """
-    Simula encontrar uma cena baseada na descrição.
-    """
-    duracao = random.randint(3, 5)  # duração aleatória entre 3 e 5 segundos
-    print(f"Encontrada cena para: '{descricao}' (duração: {duracao} segundos)")
-    time.sleep(1)  # Simula o tempo de busca
 
 def processar_roteiro(nome_arquivo):
     """
-    Lê o roteiro e simula a busca de cenas para cada ação.
+    Simula o processamento de um roteiro e salva o resultado.
     """
-    caminho_arquivo = os.path.join('uploads', nome_arquivo)
+    resultado = []
 
-    print(f"Processando o roteiro '{caminho_arquivo}'...")
-    
-    try:
-        with open(caminho_arquivo, 'r', encoding='utf-8') as arquivo:
-            linhas = arquivo.readlines()
-            if not linhas:
-                print("O roteiro está vazio.")
-                return
+    print(f"Processando o roteiro '{nome_arquivo}'...")
+    time.sleep(1)  # Simula o tempo de processamento
 
-            for linha in linhas:
-                linha = linha.strip()
-                if linha:
-                    simular_busca_cena(linha)
-        
-        print("\nProcessamento do roteiro concluído com sucesso!")
-    
-    except FileNotFoundError:
-        print(f"Arquivo '{caminho_arquivo}' não encontrado.")
+    with open(nome_arquivo, 'r', encoding='utf-8') as f:
+        linhas = f.readlines()
+
+    for linha in linhas:
+        linha = linha.strip()
+        if linha:
+            resultado.append(f"Cena encontrada: {linha} (duração: 5 segundos)")
+
+    # Salvar resultado em um arquivo
+    salvar_resultado(nome_arquivo, resultado)
+
+    print("Processamento do roteiro concluído com sucesso!")
+
+def salvar_resultado(nome_arquivo, resultados):
+    """
+    Salva as cenas encontradas em um arquivo resultado.txt
+    """
+    base_nome = os.path.splitext(os.path.basename(nome_arquivo))[0]
+    nome_saida = f"resultado_{base_nome}.txt"
+
+    with open(nome_saida, 'w', encoding='utf-8') as f:
+        for linha in resultados:
+            f.write(linha + '\n')
+
+    print(f"Resultado salvo em: {nome_saida}")
 
 def verificar_uploads():
     """
     Verifica se há arquivos de roteiro enviados.
     """
-    uploads_dir = 'uploads'
+    uploads_dir = "uploads"
     if not os.path.exists(uploads_dir):
-        print("Pasta 'uploads' não encontrada.")
+        print("Pasta de uploads não encontrada.")
         return
 
     arquivos = os.listdir(uploads_dir)
@@ -52,7 +53,8 @@ def verificar_uploads():
         return
 
     for roteiro in arquivos_txt:
-        processar_roteiro(roteiro)
+        caminho = os.path.join(uploads_dir, roteiro)
+        processar_roteiro(caminho)
 
 if __name__ == "__main__":
     print("Iniciando verificação de uploads...")
