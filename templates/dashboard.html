@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>SceneMatchAI - Dashboard</title>
+    <title>Dashboard - SceneMatchAI</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="sidebar">
         <h2>SceneMatch</h2>
-        <a href="{{ url_for('upload_form') }}">Enviar Roteiro</a>
-        <a href="{{ url_for('dashboard') }}">Ver Arquivos</a>
+        <ul>
+            <li><a href="{{ url_for('upload') }}">Enviar Roteiro</a></li>
+            <li><a href="{{ url_for('dashboard') }}">Ver Arquivos</a></li>
+            <li><a href="{{ url_for('logout') }}">Sair</a></li>
+        </ul>
     </div>
-
-    <div class="main-content">
+    <div class="content">
         <h1>Arquivos Processados</h1>
         {% if arquivos %}
         <table>
@@ -23,20 +25,20 @@
                 </tr>
             </thead>
             <tbody>
-                {% for nome_arquivo in arquivos %}
+                {% for arquivo in arquivos %}
                 <tr>
-                    <td>{{ nome_arquivo }}</td>
+                    <td>{{ arquivo }}</td>
                     <td>
-                        <a href="{{ url_for('ver_arquivo', nome_arquivo=nome_arquivo) }}">Ver</a> |
-                        <a href="{{ url_for('baixar_arquivo', nome_arquivo=nome_arquivo) }}">Baixar</a> |
-                        <a href="{{ url_for('excluir_arquivo', nome_arquivo=nome_arquivo) }}">Excluir</a>
+                        <a href="{{ url_for('ver_arquivo', nome_arquivo=arquivo) }}">Ver</a>
+                        <a href="{{ url_for('download_arquivo', nome_arquivo=arquivo) }}">Baixar</a>
+                        <a href="{{ url_for('excluir_arquivo', nome_arquivo=arquivo) }}">Excluir</a>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
         {% else %}
-        <p>Nenhum arquivo processado encontrado.</p>
+            <p>Nenhum arquivo processado ainda.</p>
         {% endif %}
     </div>
 </body>
