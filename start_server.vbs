@@ -1,2 +1,4 @@
 Set WshShell = CreateObject("WScript.Shell")
-WshShell.Run "cmd /c cd %USERPROFILE%\Documents\SceneMatchAI && python server.py", 0
+WshShell.Run "cmd /c start /min python ""C:\Users\user\Documents\SceneMatchAI\server.py""", 0
+
+

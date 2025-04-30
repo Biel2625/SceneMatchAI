@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>SceneMatchAI - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>SceneMatch</h2>
+        <a href="{{ url_for('upload_form') }}">Enviar Roteiro</a>
+        <a href="{{ url_for('dashboard') }}">Ver Arquivos</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Arquivos Processados</h1>
+        {% if arquivos %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Arquivo</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for nome_arquivo in arquivos %}
+                <tr>
+                    <td>{{ nome_arquivo }}</td>
+                    <td>
+                        <a href="{{ url_for('ver_arquivo', nome_arquivo=nome_arquivo) }}">Ver</a> |
+                        <a href="{{ url_for('baixar_arquivo', nome_arquivo=nome_arquivo) }}">Baixar</a> |
+                        <a href="{{ url_for('excluir_arquivo', nome_arquivo=nome_arquivo) }}">Excluir</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>Nenhum arquivo processado encontrado.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
