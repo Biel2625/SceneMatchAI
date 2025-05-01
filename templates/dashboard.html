@@ -1,22 +1,20 @@
+<!-- templates/dashboard.html -->
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <title>Dashboard - SceneMatchAI</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <div class="sidebar">
-        <h2>SceneMatch</h2>
-        <ul>
-            <li><a href="{{ url_for('upload') }}">Enviar Roteiro</a></li>
-            <li><a href="{{ url_for('dashboard') }}">Ver Arquivos</a></li>
-            <li><a href="{{ url_for('logout') }}">Sair</a></li>
-        </ul>
-    </div>
-    <div class="content">
-        <h1>Arquivos Processados</h1>
-        {% if arquivos %}
+    <div class="container">
+        <h1>Dashboard - Arquivos Processados</h1>
+
+        <form method="get" action="/dashboard">
+            <input type="text" name="busca" placeholder="Buscar arquivos..." value="{{ busca }}">
+            <button type="submit">Buscar</button>
+        </form>
+
         <table>
             <thead>
                 <tr>
@@ -29,17 +27,31 @@
                 <tr>
                     <td>{{ arquivo }}</td>
                     <td>
-                        <a href="{{ url_for('ver_arquivo', nome_arquivo=arquivo) }}">Ver</a>
-                        <a href="{{ url_for('download_arquivo', nome_arquivo=arquivo) }}">Baixar</a>
-                        <a href="{{ url_for('excluir_arquivo', nome_arquivo=arquivo) }}">Excluir</a>
+                        <a href="/visualizar/{{ arquivo }}">Ver</a> |
+                        <a href="/download/{{ arquivo }}">Baixar</a> |
+                        <form method="post" action="/excluir/{{ arquivo }}" style="display:inline;">
+                            <button type="submit" onclick="return confirm('Deseja excluir este arquivo?')">Excluir</button>
+                        </form>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        {% else %}
-            <p>Nenhum arquivo processado ainda.</p>
-        {% endif %}
+
+        <div class="paginacao">
+            {% if pagina > 1 %}
+            <a href="/dashboard?pagina={{ pagina - 1 }}&busca={{ busca }}">&laquo; Anterior</a>
+            {% endif %}
+            <span>Página {{ pagina }}</span>
+            {% if total > pagina * por_pagina %}
+            <a href="/dashboard?pagina={{ pagina + 1 }}&busca={{ busca }}">Próxima &raquo;</a>
+            {% endif %}
+        </div>
+
+        <div class="sair">
+            <a href="/logout">Sair</a>
+        </div>
     </div>
 </body>
 </html>
+

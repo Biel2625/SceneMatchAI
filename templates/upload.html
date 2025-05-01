@@ -1,25 +1,21 @@
+<!-- templates/upload.html -->
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Upload de Roteiro - SceneMatchAI</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Upload de Roteiro</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <div class="sidebar">
-        <h2>SceneMatch</h2>
-        <ul>
-            <li><a href="{{ url_for('upload') }}">Enviar Roteiro</a></li>
-            <li><a href="{{ url_for('dashboard') }}">Ver Arquivos</a></li>
-            <li><a href="{{ url_for('logout') }}">Sair</a></li>
-        </ul>
-    </div>
-    <div class="content">
-        <h1>Enviar novo roteiro</h1>
-        <form method="post" enctype="multipart/form-data">
-            <input type="file" name="roteiro" required>
+    <div class="container">
+        <h1>Enviar Roteiro</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" required>
             <button type="submit">Enviar</button>
         </form>
+        <div class="sair">
+            <a href="/dashboard">Voltar para o Dashboard</a>
+        </div>
     </div>
 </body>
 </html>

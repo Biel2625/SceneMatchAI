@@ -1,41 +1,18 @@
+<!-- templates/visualizar.html -->
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Visualizar Arquivo</title>
+    <title>{{ nome }}</title>
     <link rel="stylesheet" href="/static/style.css">
-    <style>
-        .container {
-            max-width: 800px;
-            margin: 40px auto;
-            background: #f9f9f9;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
-        }
-        pre {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            color: #0066cc;
-            text-decoration: none;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Conteúdo de <span style="color: darkgreen;">{{ nome_arquivo }}</span></h1>
-        <pre>{{ conteudo }}</pre>
-        <a href="/dashboard">&larr; Voltar ao Dashboard</a>
+        <h1>{{ nome }}</h1>
+        <pre style="background:#f9f9f9;padding:20px;border-radius:8px;border:1px solid #ccc;white-space:pre-wrap;">{{ conteudo }}</pre>
+        <div class="sair">
+            <a href="/dashboard">Voltar para o Dashboard</a>
+        </div>
     </div>
 </body>
 </html>
