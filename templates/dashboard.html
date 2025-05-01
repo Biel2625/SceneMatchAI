@@ -1,57 +1,37 @@
-<!-- templates/dashboard.html -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard - SceneMatchAI</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Dashboard - SceneMatch</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Dashboard - Arquivos Processados</h1>
-
-        <form method="get" action="/dashboard">
-            <input type="text" name="busca" placeholder="Buscar arquivos..." value="{{ busca }}">
-            <button type="submit">Buscar</button>
-        </form>
-
+    <div class="sidebar">
+        <h2>SceneMatch</h2>
+        <ul>
+            <li><a href="/upload">Enviar Roteiro</a></li>
+            <li><a href="/dashboard">Ver Arquivos</a></li>
+            <li><a href="/logout">Sair</a></li>
+        </ul>
+    </div>
+    <div class="main">
+        <h1>Arquivos Processados</h1>
         <table>
-            <thead>
-                <tr>
-                    <th>Arquivo</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for arquivo in arquivos %}
-                <tr>
-                    <td>{{ arquivo }}</td>
-                    <td>
-                        <a href="/visualizar/{{ arquivo }}">Ver</a> |
-                        <a href="/download/{{ arquivo }}">Baixar</a> |
-                        <form method="post" action="/excluir/{{ arquivo }}" style="display:inline;">
-                            <button type="submit" onclick="return confirm('Deseja excluir este arquivo?')">Excluir</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
+            <tr>
+                <th>Arquivo</th>
+                <th>Ações</th>
+            </tr>
+            {% for arquivo in arquivos %}
+            <tr>
+                <td>{{ arquivo }}</td>
+                <td>
+                    <a href="{{ url_for('ver_arquivo', nome_arquivo=arquivo) }}">Ver</a> |
+                    <a href="{{ url_for('download_arquivo', nome_arquivo=arquivo) }}">Baixar</a> |
+                    <a href="{{ url_for('excluir_arquivo', nome_arquivo=arquivo) }}">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
         </table>
-
-        <div class="paginacao">
-            {% if pagina > 1 %}
-            <a href="/dashboard?pagina={{ pagina - 1 }}&busca={{ busca }}">&laquo; Anterior</a>
-            {% endif %}
-            <span>Página {{ pagina }}</span>
-            {% if total > pagina * por_pagina %}
-            <a href="/dashboard?pagina={{ pagina + 1 }}&busca={{ busca }}">Próxima &raquo;</a>
-            {% endif %}
-        </div>
-
-        <div class="sair">
-            <a href="/logout">Sair</a>
-        </div>
     </div>
 </body>
 </html>
-
