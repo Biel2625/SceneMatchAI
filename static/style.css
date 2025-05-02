@@ -1,24 +1,112 @@
+/* Reset básico */
 body {
     margin: 0;
+    padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #f1f1f1;
+    background-color: #f5f5dc;
+    color: #333;
 }
 
+/* Container centralizado */
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Botões padrão */
+button, .btn-voltar, input[type="submit"] {
+    background-color: #4b0082;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s ease;
+}
+
+button:hover, .btn-voltar:hover, input[type="submit"]:hover {
+    background-color: #5e13a3;
+}
+
+/* Formulários */
+input[type="text"], input[type="password"], input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+/* Títulos */
+h1, h2 {
+    color: #2c2c2c;
+}
+
+/* Login Box */
+.login-box {
+    width: 300px;
+    margin: 80px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Dashboard Tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+th {
+    background-color: #4b0082;
+    color: white;
+}
+
+/* Ações na tabela */
+td a {
+    margin-right: 10px;
+    color: #4b0082;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
+
+/* Conteúdo do arquivo */
+.arquivo-conteudo {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border: 1px solid #ccc;
+    white-space: pre-wrap;
+    max-height: 600px;
+    overflow-y: auto;
+    font-family: 'Courier New', monospace;
+}
+
+/* Sidebar */
 .sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
     width: 200px;
-    height: 100%;
-    background-color: #1e1e1e;
+    background-color: #333;
+    height: 100vh;
     padding-top: 20px;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-}
-
-.sidebar h2 {
-    color: #fff;
-    text-align: center;
-    margin-bottom: 30px;
+    position: fixed;
 }
 
 .sidebar ul {
@@ -27,20 +115,17 @@ body {
 }
 
 .sidebar ul li {
-    margin: 10px 0;
-    text-align: center;
+    padding: 12px 20px;
 }
 
 .sidebar ul li a {
-    color: #fff;
+    color: white;
     text-decoration: none;
-    padding: 10px;
     display: block;
 }
 
 .sidebar ul li a:hover {
-    background-color: #333;
-    border-radius: 5px;
+    background-color: #444;
 }
 
 .main {
@@ -48,86 +133,3 @@ body {
     padding: 20px;
 }
 
-h1 {
-    color: #222;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: white;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-th, td {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-}
-
-th {
-    background-color: #111;
-    color: white;
-}
-
-td a {
-    margin-right: 10px;
-    color: #0066cc;
-    text-decoration: none;
-}
-
-td a:hover {
-    text-decoration: underline;
-}
-
-form {
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    border-radius: 5px;
-    width: 100%;
-    max-width: 400px;
-    margin: auto;
-}
-
-input[type="file"],
-input[type="text"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0 20px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-button, input[type="submit"] {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-}
-
-button:hover, input[type="submit"]:hover {
-    background-color: #2980b9;
-}
-
-.error {
-    color: red;
-    text-align: center;
-    margin-bottom: 15px;
-}
-
-@media screen and (max-width: 768px) {
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-    }
-    .main {
-        margin-left: 0;
-    }
-}

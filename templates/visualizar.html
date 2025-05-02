@@ -1,18 +1,15 @@
-<!-- templates/visualizar.html -->
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>{{ nome }}</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Visualizar Arquivo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>{{ nome }}</h1>
-        <pre style="background:#f9f9f9;padding:20px;border-radius:8px;border:1px solid #ccc;white-space:pre-wrap;">{{ conteudo }}</pre>
-        <div class="sair">
-            <a href="/dashboard">Voltar para o Dashboard</a>
-        </div>
+        <h1>Visualizando: {{ nome_arquivo }}</h1>
+        <pre class="arquivo-conteudo">{{ conteudo }}</pre>
+        <a href="{{ url_for('dashboard') }}" class="btn-voltar">Voltar ao Dashboard</a>
     </div>
 </body>
 </html>
