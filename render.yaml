@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: SceneMatchAI
+    env: python
+    buildCommand: ""
+    startCommand: python server.py
+    region: oregon
+    plan: free
+    branch: main
+
