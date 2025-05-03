@@ -2,31 +2,16 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Upload de Roteiro</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roteiro Enviado</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f8f8f8; text-align: center; }
+        a { color: #4CAF50; font-size: 18px; }
+    </style>
 </head>
 <body>
-    <div class="sidebar">
-        <h2>SceneMatchAI</h2>
-        <ul>
-            <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/upload">Upload</a></li>
-            <li><a href="/logout">Sair</a></li>
-        </ul>
-    </div>
-
-    <div class="main">
-        <h1>Enviar Novo Roteiro</h1>
-        <form action="/upload" method="POST" enctype="multipart/form-data">
-            <label for="arquivo">Selecione o arquivo (.txt):</label>
-            <input type="file" name="arquivo" accept=".txt" required>
-
-            <label for="email">Seu e-mail para envio do resultado:</label>
-            <input type="email" name="email" placeholder="exemplo@email.com" required>
-
-            <input type="submit" value="Enviar Roteiro">
-        </form>
-    </div>
+    <h1>Roteiro Processado com Sucesso!</h1>
+    <p>Seu roteiro foi processado. Você receberá um e-mail com o link para o arquivo.</p>
+    <a href="{{ url_for('static', filename=filename) }}" download>Baixar Roteiro Processado</a>
 </body>
 </html>
-

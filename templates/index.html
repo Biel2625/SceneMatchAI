@@ -2,14 +2,24 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>SceneMatch AI</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envio de Roteiro</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f8f8f8; text-align: center; }
+        form { margin-top: 20px; }
+        input[type="file"], input[type="email"] { margin: 10px; padding: 8px; }
+        button { padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #45a049; }
+    </style>
 </head>
 <body>
-    <div class="container-central">
-        <h1>SceneMatch AI</h1>
-        <p>Transforme roteiros em vídeos incríveis automaticamente!</p>
-        <a href="{{ url_for('login') }}" class="botao-padrao">Começar Agora</a>
-    </div>
+    <h1>Envio de Roteiro</h1>
+    <p>Escolha um arquivo .txt e envie para o processamento.</p>
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".txt" required><br>
+        <input type="email" name="email" placeholder="Seu e-mail" required><br><br>
+        <button type="submit">Enviar Roteiro</button>
+    </form>
 </body>
 </html>

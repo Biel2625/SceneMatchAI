@@ -1,24 +1,21 @@
 import smtplib
-from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
-def enviar_email(destinatario, nome_arquivo):
-    remetente = "obitogamer1997@gmail.com"
-    senha = "abcd efgh ijkl mnop"
+def enviar_email(destinatario, conteudo):
+    remetente = "seu_email@gmail.com"
+    senha = "sua_senha_de_aplicativo"
 
-    msg = MIMEMultipart()
-    msg["From"] = remetente
-    msg["To"] = destinatario
-    msg["Subject"] = "Novo roteiro processado"
-
-    corpo = f"O arquivo <strong>{nome_arquivo}</strong> foi processado com sucesso!"
-    msg.attach(MIMEText(corpo, 'html'))
+    mensagem = MIMEMultipart()
+    mensagem["From"] = remetente
+    mensagem["To"] = destinatario
+    mensagem["Subject"] = "Resultado do processamento do seu roteiro"
+    mensagem.attach(MIMEText(conteudo, "plain"))
 
     try:
-        with smtplib.SMTP("smtp.gmail.com", 587) as servidor:
-            servidor.starttls()
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as servidor:
             servidor.login(remetente, senha)
-            servidor.send_message(msg)
-            print("E-mail enviado com sucesso!")
+            servidor.send_message(mensagem)
+        print("Email enviado com sucesso!")
     except Exception as e:
-        print(f"Erro ao enviar e-mail: {e}")
+        print("Erro ao enviar email:", str(e))
