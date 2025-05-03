@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>SceneMatchAI - Upload de Roteiro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-<body style="background-color: #ffffcc; text-align: center; padding-top: 50px;">
+<body>
     <h2>Enviar Novo Roteiro</h2>
     <form method="POST" action="/upload" enctype="multipart/form-data">
         <label>Selecione o arquivo (.txt):</label><br>

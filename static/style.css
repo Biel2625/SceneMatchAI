@@ -1,135 +1,24 @@
-/* Reset básico */
 body {
-    margin: 0;
-    padding: 0;
+    background-color: #ffffcc;
+    text-align: center;
+    padding-top: 50px;
     font-family: Arial, sans-serif;
-    background-color: #f5f5dc;
-    color: #333;
 }
 
-/* Container centralizado */
-.container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+h2 {
+    margin-bottom: 20px;
 }
 
-/* Botões padrão */
-button, .btn-voltar, input[type="submit"] {
-    background-color: #4b0082;
-    color: white;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    text-decoration: none;
-    display: inline-block;
-    transition: background 0.3s ease;
-}
-
-button:hover, .btn-voltar:hover, input[type="submit"]:hover {
-    background-color: #5e13a3;
-}
-
-/* Formulários */
-input[type="text"], input[type="password"], input[type="file"] {
-    width: 100%;
+input, button {
     padding: 10px;
-    margin: 10px 0 20px;
-    border: 1px solid #ccc;
+    margin: 8px;
+    font-size: 16px;
     border-radius: 6px;
-}
-
-/* Títulos */
-h1, h2 {
-    color: #2c2c2c;
-}
-
-/* Login Box */
-.login-box {
-    width: 300px;
-    margin: 80px auto;
-    padding: 30px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
-}
-
-/* Dashboard Tabela */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-th, td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ccc;
-}
-
-th {
-    background-color: #4b0082;
-    color: white;
-}
-
-/* Ações na tabela */
-td a {
-    margin-right: 10px;
-    color: #4b0082;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-td a:hover {
-    text-decoration: underline;
-}
-
-/* Conteúdo do arquivo */
-.arquivo-conteudo {
-    background-color: #f4f4f4;
-    padding: 20px;
     border: 1px solid #ccc;
-    white-space: pre-wrap;
-    max-height: 600px;
-    overflow-y: auto;
-    font-family: 'Courier New', monospace;
 }
 
-/* Sidebar */
-.sidebar {
-    width: 200px;
-    background-color: #333;
-    height: 100vh;
-    padding-top: 20px;
-    position: fixed;
-}
-
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.sidebar ul li {
-    padding: 12px 20px;
-}
-
-.sidebar ul li a {
+button {
+    background-color: #4CAF50;
     color: white;
-    text-decoration: none;
-    display: block;
+    cursor: pointer;
 }
-
-.sidebar ul li a:hover {
-    background-color: #444;
-}
-
-.main {
-    margin-left: 220px;
-    padding: 20px;
-}
-
